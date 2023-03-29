@@ -4,11 +4,53 @@
     <title>
         <%=title %>
     </title>
+    <link rel="stylesheet" href="./css/todo.css">
 </head>
 
-<body>
-    <div style="display: flex;">
+<body class="main">
+    <div>
 
+        <header>
+            <div> TODO APP</div>
+        </header>
+        <section>
+            <div>
+                <div>
+                    <label for="desc">Description</label>
+                    <input type="text" class="desc" id="desc" />
+                </div>
+
+                <div class="category_container">
+                    <div class="item">
+                        <label for="cat">Category</label>
+                        <select id="cat">
+                            <option>3</option>
+                        </select>
+                    </div>
+                    <div class="item">
+                        <label for="datee">Due date</label>
+                        <input type="date" id="datee" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="buttonContainer">
+                <button>+ Add Task</button>
+                <button>- Delete Task</button>
+            </div>
+            <div class="list">
+                <div class="listItem">
+                    <input type="checkbox">
+                    <div class="itemInner">
+                        <div>
+                            <div class="taskName">Why not add a task</div>
+                            <div>May 2, 2008</div>
+                        </div>
+                        <button>Category</button>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </body>
 
