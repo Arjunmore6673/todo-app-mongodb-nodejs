@@ -14,44 +14,76 @@
             <div> TODO APP</div>
         </header>
         <section>
-            <div>
+            <form action="/addTodo" method="POST">
+
                 <div>
-                    <label for="desc">Description</label>
-                    <input type="text" class="desc" id="desc" />
-                </div>
-
-                <div class="category_container">
-                    <div class="item">
-                        <label for="cat">Category</label>
-                        <select id="cat">
-                            <option>3</option>
-                        </select>
+                    <div>
+                        <label for="desc">Description</label>
+                        <input type="text" class="desc" id="desc" name="desc" required />
                     </div>
-                    <div class="item">
-                        <label for="datee">Due date</label>
-                        <input type="date" id="datee" />
-                    </div>
-                </div>
 
-            </div>
-            <div class="buttonContainer">
-                <button>+ Add Task</button>
-                <button>- Delete Task</button>
-            </div>
-            <div class="list">
-                <div class="listItem">
-                    <input type="checkbox">
-                    <div class="itemInner">
-                        <div>
-                            <div class="taskName">Why not add a task</div>
-                            <div>May 2, 2008</div>
+                    <div class="category_container">
+                        <div class="item">
+                            <label for="cat">Category</label>
+                            <select id="cat" name="category" required>
+                                <option>WORK</option>
+                                <option>PERSONAL</option>
+                                <option>PUBLIC</option>
+                            </select>
                         </div>
-                        <button>Category</button>
+                        <div class="item">
+                            <label for="datee">Due date</label>
+                            <input type="date" id="datee" name="dueDate" required />
+                        </div>
                     </div>
                 </div>
+                <div class="buttonContainer">
+                    <button type="submit">
+                        + Add Task
+                    </button>
+                    <button onclick="getValue()">- Delete Task</button>
+                </div>
+            </form>
+
+            <hr />
+
+            <div class="list">
+                <% for(item of list) { %>
+                    <div class="listItem">
+                        <input type="checkbox" name="chk" value="<%= item._id %>">
+                        <div class="itemInner">
+                            <div>
+                                <div class="taskName">
+                                    <%=item.desc %>
+                                </div>
+                                <div>
+                                    <%=item.dueDate %>
+
+                                </div>
+                            </div>
+                            <button>
+                                <%=item.category %>
+                            </button>
+                        </div>
+                    </div>
+                    <% } %>
             </div>
         </section>
     </div>
+    <script>
+        async function getValue() {
+            var checkboxes = document.getElementsByName('chk');
+            var result = []
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked)
+                    result.push(checkboxes[i].value)
+            }
+            const URL = '/deleteTodo/' + result.join(',');
+            fetch(URL, { method: 'GET' }).then(x => {
+                location.reload()
+            });
+        }
+    </script>
 </body>
 
 </html>
